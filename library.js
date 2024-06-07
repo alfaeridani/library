@@ -12,11 +12,14 @@ function addBookToLibrary() {
     let read = prompt("Have you read this book?", "No");
     newBook = new Book([name, author, pages, read]);
     myLibrary.push(newBook);
-    return;
+    displayBooks();
 }
 
 function displayBooks() {
     let bookContainer = document.querySelector(".bookContainer");
+    while (bookContainer.firstChild) {
+        bookContainer.removeChild(bookContainer.lastChild);
+    }
     
     for(let i = 0; i < myLibrary.length; i++) {
         let singleBookContainer = document.createElement("div");
@@ -39,7 +42,6 @@ function displayBooks() {
         singleBookContainer.appendChild(displayPages);
         singleBookContainer.appendChild(displayRead);
     }
-    return;
 }
 
 const myLibrary = [];
