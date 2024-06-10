@@ -24,38 +24,70 @@ function displayBooks() {
     // Fill the div with array myLibrary
     for(let i = 0; i < myLibrary.length; i++) {
         let singleBookContainer = document.createElement("div"); // Create a container for each book
+        singleBookContainer.setAttribute("class", "book" + i); // Set a class for each book
         bookContainer.appendChild(singleBookContainer);
 
-        singleBookContainer.setAttribute("class", "book" + i); // Set a class for each book
-
-        let deleteButton = document.createElement("button"); // This is a button for every single book to remove it
-        deleteButton.textContent = "Delete";
-        deleteButton.addEventListener("click", () => {
-            myLibrary.splice(i, 1); // Remove book from the array
-            displayBooks(); // Refresh the book display
-        })
-
-        let displayName = document.createElement("p");
+        let displayName = document.createElement("h2");
         displayName.textContent = myLibrary[i].name;
             
         let displayAuthor = document.createElement("p");
         displayAuthor.textContent = myLibrary[i].author;
 
         let displayPages = document.createElement("p");
-        displayPages.textContent = myLibrary[i].pages;
+        displayPages.textContent = myLibrary[i].pages + " page(s)";
 
-        let displayRead = document.createElement("p");
-        displayRead.textContent = myLibrary[i].read;
-
-        singleBookContainer.appendChild(deleteButton);
         singleBookContainer.appendChild(displayName);
         singleBookContainer.appendChild(displayAuthor);
         singleBookContainer.appendChild(displayPages);
-        singleBookContainer.appendChild(displayRead);
+
+        let buttonContainer = document.createElement("div");
+        buttonContainer.setAttribute("class", "buttonContainer");
+        singleBookContainer.appendChild(buttonContainer);
+
+        let deleteButton = document.createElement("button"); // This is a button to remove a book
+        deleteButton.setAttribute("class", "delete");
+        deleteButton.setAttribute("alt", "Delete");
+        deleteButton.addEventListener("click", () => {
+            myLibrary.splice(i, 1); // Remove book from the array
+            displayBooks(); // Refresh the book display
+        });
+
+        let readButton = document.createElement("button");
+        readButton.setAttribute("alt", "Read button");
+        if (myLibrary[i].read === "yes") {
+            readButton.textContent = "Read";
+            readButton.setAttribute("class", "read yes");
+        } else {
+            readButton.textContent = "Not read yet";
+            readButton.setAttribute("class", "read no");
+        }
+        readButton.addEventListener("click", () => {
+            if (myLibrary[i].read === "yes") {
+                myLibrary[i].read = "no";
+                readButton.textContent = "Not read yet";
+                readButton.setAttribute("class", "read no");
+            } else {
+                myLibrary[i].read = "yes";
+                readButton.textContent = "Read";
+                readButton.setAttribute("class", "read yes");
+            }
+        });
+
+        buttonContainer.appendChild(readButton);
+        buttonContainer.appendChild(deleteButton);
     }
 }
 
-const myLibrary = [];
+const myLibrary = []; // Array for storing book objects
+
+// Sample books
+addBookToLibrary("Wuthering Heights", "Emily Brontë", 464, "yes");
+addBookToLibrary("The Picture of Dorian Gray", "Oscar Wilde", 272, "no");
+addBookToLibrary("The Stranger", "Albert Camus", 159, "yes");
+addBookToLibrary("Crime and Punishment", "Fyodor Dostoevsky", 671, "yes");
+addBookToLibrary("All Quiet on the Western Front", "Erich Maria Remarque", 292, "no");
+addBookToLibrary("Holes", "Louis Sachar", 272, "yes");
+addBookToLibrary("1984", "George Orwell", 368, "yes");
 
 let bookWindow = document.querySelector(".bookWindow");
 let addBookButton = document.querySelector("#addBook");
