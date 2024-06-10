@@ -3,12 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles.css" rel="stylesheet" type="text/css">
     <title>Library</title>
 </head>
 <body>
+    <h1>My Library</h1>
     <button id="addBook">Add Book</button>
+
     <div class="bookContainer">
     </div>
+
+    <dialog class="bookWindow">
+        <button id="closeBook" autofocus>Close</button>
+        <form class="bookForm">
+            <fieldset>
+                <legend>Add Book</legend>
+
+                <label for="book-name">Book name:</label>
+                <input type="text" id="book-name" name="book-name"
+                placeholder="The Woods" required>
+
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author"
+                placeholder="Pawzer Eridani" required>
+
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="pages"
+                placeholder="363" required>
+
+                <label for="read">Read:</label>
+                <select name="read" id="read" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </fieldset>
+            <button type="submit">Submit</button>
+        </form>
+    </dialog>
     <script src="library.js"></script>
 </body>
 </html>
